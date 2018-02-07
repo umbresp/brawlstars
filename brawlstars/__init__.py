@@ -4,5 +4,5 @@ from .asyncclient import *
 __author__ = 'Umbresp'
 __title__ = 'brawlstars'
 __license__ = 'MIT'
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 __github__ = 'https://www.github.com/umbresp/brawlstars'
