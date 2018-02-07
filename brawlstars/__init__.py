@@ -1,4 +1,5 @@
 from .client import *
+from .asyncclient import *
 
 __author__ = 'Umbresp'
 __title__ = 'brawlstars'
