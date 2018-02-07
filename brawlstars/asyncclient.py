@@ -45,7 +45,7 @@ class AsyncClient:
         except Exception:
             raise InvalidArg('tag')
 
-       if data['status']['error']:
+        if data['status']['error']:
             raise HTTPError(data['status']['code'])
 
         data = data['data']

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='brawlstars',
-    version='0.0.7',
+    version='0.0.8',
     description='Nothing here yet...',
     long_description="Nothing here yet...",
     url='https://github.com/umbresp/brawlstars',
