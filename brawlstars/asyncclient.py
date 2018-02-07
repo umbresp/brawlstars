@@ -4,19 +4,28 @@ from box import Box
 from .errors import *
 
 class AsyncClient:
+    '''The Asynchronous client for brawl stars API.
+
+    The Asynchronous client for brawl stars API.
+    Methods are in snake_case.
+    Attributes are in camelCase.
+    '''
 
     def __init__(self, timeout=5):
         self.baseUrl = 'https://brawl-stars.herokuapp.com/api/'
         self.session = aiohttp.ClientSession()
         self.timeout = timeout
         self.headers = {
-            'User-Agent': 'Umbresp\'s BrawlStars Python Wrapper, but asynchronous!!'
+            'User-Agent': 'Umbresp | Python (Async)'
         }
 
     def __del__(self):
         self.session.close()
 
-    async def getPlayer(self, tag=None):
+    def __repr__(self):
+        return f'<Asynchronous BS Client timeout = {self.timeout}>'
+
+    async def get_player(self, tag=None):
         if tag is None:
             raise MissingArg('tag')
 
@@ -25,10 +34,10 @@ class AsyncClient:
 
         try:
             async with self.session.get(f'{self.baseUrl}players/{tag}', timeout=self.timeout, headers=self.headers) as resp:
-                if resp.status_code == 200:
+                if resp.status == 200:
                     data = await resp.json()
-                elif 500 > resp.status_code > 400:
-                    raise HTTPError(resp.status_code)
+                elif 500 > resp.status > 400:
+                    raise HTTPError(resp.status)
                 else:
                     raise Error()
         except asyncio.TimeoutError:
@@ -46,7 +55,7 @@ class AsyncClient:
 
 class Player(Box):
 
-    async def getBand(self):
+    async def get_band(self):
         try:
             band = self.band
         except AttributeError:
@@ -55,7 +64,7 @@ class Player(Box):
         band = Band(band)
         return band
 
-    async def getStats(self):
+    async def get_stats(self):
         try:
             ls = self.stats
         except AttributeError:
@@ -64,7 +73,7 @@ class Player(Box):
         ls = Stats(ls)
         return ls
 
-    async def getProfile(self):
+    async def get_profile(self):
         try:
             ls = self.profile
         except AttributeError:

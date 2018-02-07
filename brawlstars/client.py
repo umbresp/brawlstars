@@ -3,18 +3,26 @@ from box import Box
 from .errors import *
 
 class Client:
+    '''The client for brawl stars API.
 
+    The client for brawl stars API.
+    Methods are in snake_case.
+    Attributes are in camelCase.
+    '''
     def __init__(self, timeout=5):
         self.baseUrl = 'http://brawl-stars.herokuapp.com/api/'
         self.timeout = timeout
         self.headers = {
-            'User-Agent': 'Umbresp\'s BrawlStars Python Wrapper'
+            'User-Agent': 'Umbresp | Python'
         }
 
     def __del__(self):
         pass
 
-    def getPlayer(self, tag=None):
+    def __repr__(self):
+        return f'<BS Client timeout = {self.timeout}>'
+
+    def get_player(self, tag=None):
         if tag is None:
             raise MissingArg('tag')
 
@@ -34,7 +42,7 @@ class Client:
 
         if data['status']['error']:
             raise HTTPError(data['status']['code'])
-            
+
         data = data['data']
         data = Box(data)
         player = Player(data)
@@ -42,7 +50,7 @@ class Client:
 
 class Player(Box):
 
-    def getBand(self):
+    def get_band(self):
         try:
             band = self.band
         except AttributeError:
@@ -51,7 +59,7 @@ class Player(Box):
         band = Band(band)
         return band
 
-    def getStats(self):
+    def get_stats(self):
         try:
             ls = self.stats
         except AttributeError:
@@ -60,7 +68,7 @@ class Player(Box):
         ls = Stats(ls)
         return ls
 
-    def getProfile(self):
+    def get_profile(self):
         try:
             ls = self.profile
         except AttributeError:
