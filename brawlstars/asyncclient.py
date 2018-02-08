@@ -11,12 +11,13 @@ class AsyncClient:
     Attributes are in camelCase.
     '''
 
-    def __init__(self, timeout=5):
+    def __init__(self, token, timeout=5):
         self.baseUrl = 'https://brawl-stars.herokuapp.com/api/'
         self.session = aiohttp.ClientSession()
         self.timeout = timeout
         self.headers = {
-            'User-Agent': 'Umbresp | Python (Async)'
+            'User-Agent': 'Umbresp | Python (Async)',
+            'Authorization': f'Bearer {token}'
         }
 
     def __del__(self):
