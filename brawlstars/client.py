@@ -9,11 +9,12 @@ class Client:
     Methods are in snake_case.
     Attributes are in camelCase.
     '''
-    def __init__(self, timeout=5):
+    def __init__(self, token, timeout=5):
         self.baseUrl = 'http://brawl-stars.herokuapp.com/api/'
         self.timeout = timeout
         self.headers = {
-            'User-Agent': 'Umbresp | Python'
+            'User-Agent': 'Umbresp | Python',
+            'Authorization': f'Bearer {token}'
         }
 
     def __del__(self):
