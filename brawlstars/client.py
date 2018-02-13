@@ -41,8 +41,6 @@ class Client:
         except:
             raise Timeout()
 
-        if data['status']:
-            raise HTTPError(data['reason'])
 
         data = Box(data)
         player = Player(data)

@@ -46,8 +46,6 @@ class AsyncClient:
         except Exception:
             raise InvalidArg('tag')
 
-        if data['status']:
-            raise HTTPError(data['reason'])
 
         data = Box(data)
         player = Player(data)
