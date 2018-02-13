@@ -12,12 +12,12 @@ class AsyncClient:
     '''
 
     def __init__(self, token, timeout=5):
-        self.baseUrl = 'https://brawl-stars.herokuapp.com/api/'
+        self.baseUrl = 'https://brawlstars-api.herokuapp.com/api/'
         self.session = aiohttp.ClientSession()
         self.timeout = timeout
         self.headers = {
             'User-Agent': 'Umbresp | Python (Async)',
-            'Authorization': f'Bearer {token}'
+            'Authorization': token
         }
 
     def __del__(self):
@@ -46,48 +46,40 @@ class AsyncClient:
         except Exception:
             raise InvalidArg('tag')
 
-        if data['status']['error']:
-            raise HTTPError(data['status']['code'])
+        if data['status']:
+            raise HTTPError(data['reason'])
 
-        data = data['data']
         data = Box(data)
         player = Player(data)
         return player
 
 class Player(Box):
 
-    async def get_band(self):
+    async def get_id(self):
         try:
-            band = self.band
+            ret = self.id
         except AttributeError:
             return None
-        band = Box(band)
-        band = Band(band)
-        return band
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
 
-    async def get_stats(self):
+    async def get_brawlers(self):
         try:
-            ls = self.stats
+            brawlers = self.brawlers
         except AttributeError:
             return None
-        ls = Box(ls)
-        ls = Stats(ls)
-        return ls
 
-    async def get_profile(self):
-        try:
-            ls = self.profile
-        except AttributeError:
-            return None
-        ls = Box(ls)
-        ls = Profile(ls)
-        return ls
+        something = []
+        for brawler in brawlers:
+            thing = Box(brawler)
+            thing = Brawler(thing)
+            something.append(thing)
 
-class Band(Box):
+        return something
+
+class Id(Box):
     pass
 
-class Stats(Box):
-    pass
-
-class Profile(Box):
+class Brawler(Box):
     pass
