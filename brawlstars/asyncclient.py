@@ -51,6 +51,31 @@ class AsyncClient:
         player = Player(data)
         return player
 
+    async def get_band(self, tag=None):
+        if tag is None:
+            raise MissingArg('tag')
+
+        tag = tag.strip("#")
+        tag = tag.upper()
+
+        try:
+            async with self.session.get(f'{self.baseUrl}bands/{tag}', timeout=self.timeout, headers=self.headers) as resp:
+                if resp.status == 200:
+                    data = await resp.json()
+                elif 500 > resp.status > 400:
+                    raise HTTPError(resp.status)
+                else:
+                    raise Error()
+        except asyncio.TimeoutError:
+            raise Timeout()
+        except Exception:
+            raise InvalidArg('tag')
+
+
+        data = Box(data)
+        band = Band(data)
+        return band
+
 class Player(Box):
 
     async def get_id(self):
@@ -75,6 +100,61 @@ class Player(Box):
             something.append(thing)
 
         return something
+
+    async def get_band(self):
+        try:
+            band = self.band
+        except AttributError:
+            return None
+        band = Box(band)
+        band = MinimalBand(band)
+        return band
+
+class MinimalBand(Box):
+    
+    async def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
+
+class Band(Box):
+
+    async def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
+
+    async def get_members(self):
+        try:
+            memberList = self.bandMembers
+        except AttributError:
+            return None
+        members = []
+        for i in memberList:
+            thing = Box(i)
+            thing = Member(thing)
+            members.append(thing)
+
+        return members
+
+class Member(Box):
+
+    async def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
 
 class Id(Box):
     pass

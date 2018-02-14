@@ -46,6 +46,28 @@ class Client:
         player = Player(data)
         return player
 
+    def get_band(self, tag=None):
+        if tag is None:
+            raise MissingArg('tag')
+
+        tag = tag.strip("#")
+        tag = tag.upper()
+
+        try:
+            resp = requests.get(f'{self.baseUrl}bands/{tag}', params=self.headers, timeout=self.timeout)
+            if resp.status_code == 200:
+                data = resp.json()
+            elif 500 > resp.status_code > 400:
+                raise HTTPError(resp.status_code)
+            else:
+                raise Error()
+        except:
+            raise Timeout()
+
+        data = Box(data)
+        band = Band(data)
+        return band
+
 class Player(Box):
 
     def get_id(self):
@@ -70,6 +92,62 @@ class Player(Box):
             something.append(thing)
 
         return something
+
+    def get_band(self):
+        try:
+            band = self.band
+        except AttributError:
+            return None
+        band = Box(band)
+        band = MinimalBand(band)
+        return band
+
+
+class MinimalBand(Box):
+
+    def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
+
+class Band(Box):
+
+    def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
+
+    def get_members(self):
+        try:
+            memberList = self.bandMembers
+        except AttributError:
+            return None
+        members = []
+        for i in memberList:
+            thing = Box(i)
+            thing = Member(thing)
+            members.append(thing)
+
+        return members
+
+class Member(Box):
+
+    def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
 
 class Id(Box):
     pass
