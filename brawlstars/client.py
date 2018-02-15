@@ -21,7 +21,7 @@ class Client:
         pass
 
     def __repr__(self):
-        return f'<BS Client timeout = {self.timeout}>'
+        return f'<BS Client timeout = {self.timeout} baseUrl = {self.baseUrl}>'
 
     def get_player(self, tag=None):
         if tag is None:
@@ -70,6 +70,9 @@ class Client:
 
 class Player(Box):
 
+    def __repr__(self):
+        return f'<Player tag = {self.tag} name = {self.name}'
+
     def get_id(self):
         try:
             ret = self.id
@@ -105,6 +108,9 @@ class Player(Box):
 
 class MinimalBand(Box):
 
+    def __repr__(self):
+        return f'<Minimal Band tag = {self.tag} name = {self.name}'
+
     def get_id(self):
         try:
             ret = self.id
@@ -115,6 +121,9 @@ class MinimalBand(Box):
         return ret
 
 class Band(Box):
+
+    def __repr__(self):
+        return f'<Band tag = {self.tag} name = {self.name}'
 
     def get_id(self):
         try:
@@ -140,6 +149,9 @@ class Band(Box):
 
 class Member(Box):
 
+    def __repr__(self):
+        return f'<Member role = {self.role} name = {self.name}'
+
     def get_id(self):
         try:
             ret = self.id
@@ -150,7 +162,9 @@ class Member(Box):
         return ret
 
 class Id(Box):
-    pass
+    def __repr__(self):
+        return f'<ID high = {self.high} low = {self.low}'
 
 class Brawler(Box):
-    pass
+    def __repr__(self):
+        return f'<Brawler trophies = {self.trophies} name = {self.name}'

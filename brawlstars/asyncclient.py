@@ -24,7 +24,7 @@ class AsyncClient:
         self.session.close()
 
     def __repr__(self):
-        return f'<Asynchronous BS Client timeout = {self.timeout}>'
+        return f'<Asynchronous BS Client timeout = {self.timeout} baseUrl = {self.baseUrl}>'
 
     async def get_player(self, tag=None):
         if tag is None:
@@ -78,6 +78,9 @@ class AsyncClient:
 
 class Player(Box):
 
+    def __repr__(self):
+        return f'<Asynchronous Player tag = {self.tag} name = {self.name}'
+
     async def get_id(self):
         try:
             ret = self.id
@@ -104,13 +107,16 @@ class Player(Box):
     async def get_band(self):
         try:
             band = self.band
-        except AttributError:
+        except AttributeError:
             return None
         band = Box(band)
         band = MinimalBand(band)
         return band
 
 class MinimalBand(Box):
+
+    def __repr__(self):
+        return f'<Asynchronous Minimal Band tag = {self.tag} name = {self.name}'
     
     async def get_id(self):
         try:
@@ -122,6 +128,9 @@ class MinimalBand(Box):
         return ret
 
 class Band(Box):
+
+    def __repr__(self):
+        return f'<Asynchronous Band tag = {self.tag} name = {self.name}'
 
     async def get_id(self):
         try:
@@ -147,6 +156,9 @@ class Band(Box):
 
 class Member(Box):
 
+    def __repr__(self):
+        return f'<Asynchronous Member role = {self.role} name = {self.name}'
+
     async def get_id(self):
         try:
             ret = self.id
@@ -157,7 +169,9 @@ class Member(Box):
         return ret
 
 class Id(Box):
-    pass
+    def __repr__(self):
+        return f'<Asynchronous ID high = {self.high} low = {self.low}'
 
 class Brawler(Box):
-    pass
+    def __repr__(self):
+        return f'<Asynchronous Brawler trophies = {self.trophies} name = {self.name}'
