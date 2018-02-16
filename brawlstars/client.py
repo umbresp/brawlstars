@@ -31,7 +31,7 @@ class Client:
         tag = tag.upper()
 
         try:
-            resp = requests.get(f'{self.baseUrl}players/{tag}', params=self.headers, timeout=self.timeout)
+            resp = requests.get(f'{self.baseUrl}players/{tag}', headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
@@ -54,7 +54,7 @@ class Client:
         tag = tag.upper()
 
         try:
-            resp = requests.get(f'{self.baseUrl}bands/{tag}', params=self.headers, timeout=self.timeout)
+            resp = requests.get(f'{self.baseUrl}bands/{tag}', headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
