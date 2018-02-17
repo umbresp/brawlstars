@@ -10,6 +10,6 @@ Here's a list with a link to a file for every class in the wrapper because I'm *
 - [Id](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/id.md)
 - [Member](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/member.md)
 - [MinimalBand](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/minimalband.md)
-- [Player](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/player.md)\
+- [Player](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/player.md)
 
 \*Not finished yet.
