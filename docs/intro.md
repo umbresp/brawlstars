@@ -99,3 +99,30 @@ have occured.
 
 `brawlstars.errors.MissingData`: Either the world is ending, in which case you should go hide in your bunker, or Zihad
 forgot to include some vital information AGAIN!
+
+## But wait! You promised to discuss the asynchronous client!
+
+\*sighs\*... yes I did.
+
+The asynchronous client, `brawlstars.AsyncClient`, functions exactly the same as `brawlstars.Client` except for two things:
+
+1. Every single coroutine must be awaited or else you'll just get a bunch of responses about how you didn't await coroutines.
+2. `brawlstars.AsyncClient.session` exists, but is pretty useless to you because it's immutable.
+
+Don't believe me? Here's an example.
+
+```py
+import brawlstars
+import asyncio
+
+async def get_stats():
+    client = brawlstars.AsyncClient(token="your token here", timeout=5)
+    player = await client.get_player(tag="Q8P2ULP")
+    print(player.name + " (#" + player.tag + ")") # Prints "Dreemurr (#Q8P2ULP)"
+
+eventLoop = asyncio.get_event_loop()
+eventLoop.run_until_complete(get_stats())
+```
+
+If you're confused by the asynchronous loop or what that means, go Google it. (This doesn't count as a difference
+because it's explicitly stated that this client is asynchronous which should be obvious, given its name.)
