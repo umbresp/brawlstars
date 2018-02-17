@@ -2,6 +2,7 @@
 
 ## Creating a Client:
 `client = brawlstars.Client(*args, **kwargs)`
+
 | Argument | Description | Type |
 |----------|-------------|------|
 | token | The authorization header to be passed to access the API. | string |
