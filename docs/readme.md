@@ -16,7 +16,7 @@ If you ever need help with anything, feel free to [open an issue](https://github
 
 - [Getting Started](https://github.com/umbresp/brawlstars/blob/master/docs/intro.md)
 - [API Reference](https://github.com/umbresp/brawlstars/blob/master/docs/reference.md)
-- [Examples](https://github.com/umbresp/brawlstars/blob/master/docs/examples.md)
+- [Examples](https://github.com/umbresp/brawlstars/blob/master/docs/examples/examples.md)
 
 ## Legal
 
