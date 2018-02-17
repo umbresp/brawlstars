@@ -6,13 +6,13 @@ You should also have your API token handy with you. If you don't have one, hop i
 ## Get a profile
 Getting a profile is simple. First, import the brawlstars module:
 
-```
+```py
 >>> import brawlstars
 ```
 
 Now that you've imported the module, let's see what it can do.
 
-```
+```py
 >>> print(dir(brawlstars))
 ['ArgError', 'AsyncClient', 'Band', 'Box', 'Brawler', 'Client', 'Error', 'HTTPError', 'Id', 
 'InvalidArg', 'Member', 'MinimalBand', 'MissingArg', 'MissingData', 'Player', 'Timeout', 
@@ -28,7 +28,7 @@ You also don't need to worry about the last 6 items, those are imported modules.
 Let's create a Client (trying to create an instance of anything else will cause
 an error because those objects do not have explicit `__init__` methods):
 
-```
+```py
 >>> client = brawlstars.Client(token = "ABCDEFG", timeout = 5)
 ```
 (We'll cover the asynchronous part of this later.)
@@ -37,7 +37,7 @@ The Client represents the connection to the API. It's necessary, or else you wou
 input your authorization in every request. It's also beneficial as you only have to open 1 session
 instead of a new session every time you need some data. Let's see what the Client can give us:
 
-```
+```py
 >>> print(dir(client))
 ['__class__', '__del__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__',
 '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', 
@@ -49,7 +49,7 @@ instead of a new session every time you need some data. Let's see what the Clien
 Here we see 5 important items in the Client. `baseUrl` is immutable; you cannot change the `baseUrl`.
 `get_player` is the one we need, and it takes one argument- the player's tag.
 
-```
+```py
 >>> player = client.get_player('Q8P2ULP')
 ```
 
@@ -59,7 +59,7 @@ Congratulations! You have now created a Player object, just as the title of this
 
 Let's see what values and methods `Player` gives us.
 
-```
+```py
 print(dir(player))
 ['__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__',
 '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', 
@@ -75,7 +75,7 @@ should be able to see how to get the data you want, if you are still confused at
 Also, something I should mention, the methods for `Player` are not included in the directory. It's weird, I know.
 If you really want to know what methods you can use for `Player`, go look in the documentation.
 
-```
+```py
 >>> print(player.name)
 Dreemurr
 >>> print(player.trophies)
