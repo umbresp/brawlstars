@@ -1,6 +1,6 @@
 import requests
 from box import Box
-from .errors import *
+from .errors import Error, ArgError, MissingArg, InvalidArg, HTTPError, Timeout, MissingData
 
 class Client:
     '''The client for brawl stars API.
@@ -10,34 +10,46 @@ class Client:
     Attributes are in camelCase.
     '''
     def __init__(self, token, timeout=5):
+        '''Creates an client.
+
+        Creates an client.
+        Automatically sets 4 attributes:
+
+            baseUrl: The base URL to make the request from.
+            headers: Headers to pass when making the request.
+            session: A requests.Session() object that represents the session.
+            timeout: The timeout to wait before cancelling a request.
+        '''
         self.baseUrl = 'http://brawlstars-api.herokuapp.com/api/'
         self.timeout = timeout
+        self.session = requests.Session()
         self.headers = {
             'User-Agent': 'Umbresp | Python',
             'Authorization': token
         }
 
-    def __del__(self):
-        pass
+    def __str__(self):
+        return f'Brawlstars Requests Client (timeout = {self.timeout}, session = {self.session})'
 
     def __repr__(self):
         return f'<BS Client timeout = {self.timeout} baseUrl = {self.baseUrl}>'
 
-    def get_player(self, tag=None):
-        if tag is None:
-            raise MissingArg('tag')
+    def get_player(self, tag):
 
         tag = tag.strip("#")
         tag = tag.upper()
 
         try:
-            resp = requests.get(f'{self.baseUrl}players/{tag}', headers=self.headers, timeout=self.timeout)
+            with self.session as session:
+                resp = sesssion.get(f'{self.baseUrl}players/{tag}', headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
                 raise HTTPError(resp.status_code)
             else:
                 raise Error()
+        except ValueError:
+            raise MissingData('data')
         except:
             raise Timeout()
 
@@ -46,9 +58,7 @@ class Client:
         player = Player(data)
         return player
 
-    def get_band(self, tag=None):
-        if tag is None:
-            raise MissingArg('tag')
+    def get_band(self, tag):
 
         tag = tag.strip("#")
         tag = tag.upper()
@@ -61,6 +71,8 @@ class Client:
                 raise HTTPError(resp.status_code)
             else:
                 raise Error()
+        except ValueError:
+            raise MissingData('data')
         except:
             raise Timeout()
 
@@ -69,6 +81,9 @@ class Client:
         return band
 
 class Player(Box):
+
+    def __str__(self):
+        return f'{self.name} #{self.tag}'
 
     def __repr__(self):
         return f'<Player tag = {self.tag} name = {self.name}'
@@ -108,6 +123,9 @@ class Player(Box):
 
 class MinimalBand(Box):
 
+    def __str__(self):
+        return f'{self.name} #{self.tag}'
+
     def __repr__(self):
         return f'<Minimal Band tag = {self.tag} name = {self.name}'
 
@@ -121,6 +139,9 @@ class MinimalBand(Box):
         return ret
 
 class Band(Box):
+
+    def __str__(self):
+        return f'{self.name} #{self.tag}'
 
     def __repr__(self):
         return f'<Band tag = {self.tag} name = {self.name}'
@@ -149,6 +170,9 @@ class Band(Box):
 
 class Member(Box):
 
+    def __str__(self):
+        return f'{self.name}, position in clan {self.role}'
+
     def __repr__(self):
         return f'<Member role = {self.role} name = {self.name}'
 
@@ -162,9 +186,17 @@ class Member(Box):
         return ret
 
 class Id(Box):
+
+    def __str__(self):
+        return f'{self.high}-{self.low}'
+
     def __repr__(self):
         return f'<ID high = {self.high} low = {self.low}'
 
 class Brawler(Box):
+
+    def __str__(self):
+        return f'{self.name} ({self.trophies} trophies)'
+        
     def __repr__(self):
         return f'<Brawler trophies = {self.trophies} name = {self.name}'
