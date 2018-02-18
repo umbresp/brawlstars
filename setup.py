@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='brawlstars',
-    version='0.2.6',
+    version='0.2.7',
     description='A wrapper, both asynchronous and not, for the Brawl Stars API made by Zihad!',
     long_description="I am bad at writing descriptions. TODO",
     url='https://github.com/umbresp/brawlstars',
