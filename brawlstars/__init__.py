@@ -1,5 +1,6 @@
 from .client import *
 from .asyncclient import *
+from .errors import *
 
 __author__ = 'Umbresp'
 __title__ = 'brawlstars'

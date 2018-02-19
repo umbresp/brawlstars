@@ -18,18 +18,19 @@ class AsyncClient:
         Creates an Asynchronous client.
         Automatically sets 4 attributes:
 
-            baseUrl: The base URL to make the request from.
+            __base_url: The base URL to make the request from.
             headers: Headers to pass when making the request.
             session: An aiohttp.ClientSession object that represents the session.
             timeout: The timeout to wait before cancelling a request.
         '''
-        self.baseUrl = 'https://brawlstars-api.herokuapp.com/api/'
+        self.__base_url = 'https://brawlstars-api.herokuapp.com/api/'
         self.session = aiohttp.ClientSession()
         self.timeout = timeout
         self.headers = {
             'User-Agent': 'Umbresp | Python (Async)',
             'Authorization': token
         }
+        self.get_profile = self.get_player
 
     def __del__(self):
         self.session.close()
@@ -38,7 +39,7 @@ class AsyncClient:
         return f'Brawlstars AioHTTP Client (timeout = {self.timeout}, session = {self.session})'
 
     def __repr__(self):
-        return f'<Asynchronous BS Client timeout = {self.timeout} baseUrl = {self.baseUrl}>'
+        return f'<Asynchronous BS Client timeout = {self.timeout} __base_url = {self.__base_url}>'
 
     async def get_player(self, tag):
 
@@ -46,7 +47,7 @@ class AsyncClient:
         tag = tag.upper()
 
         try:
-            async with self.session.get(f'{self.baseUrl}players/{tag}', timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(f'{self.__base_url}players/{tag}', timeout=self.timeout, headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:
@@ -71,7 +72,7 @@ class AsyncClient:
         tag = tag.upper()
 
         try:
-            async with self.session.get(f'{self.baseUrl}bands/{tag}', timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(f'{self.__base_url}bands/{tag}', timeout=self.timeout, headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:

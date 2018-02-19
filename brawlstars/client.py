@@ -15,24 +15,25 @@ class Client:
         Creates an client.
         Automatically sets 4 attributes:
 
-            baseUrl: The base URL to make the request from.
+            __base_url: The base URL to make the request from.
             headers: Headers to pass when making the request.
             session: A requests.Session() object that represents the session.
             timeout: The timeout to wait before cancelling a request.
         '''
-        self.baseUrl = 'http://brawlstars-api.herokuapp.com/api/'
+        self.__base_url = 'http://brawlstars-api.herokuapp.com/api/'
         self.timeout = timeout
         self.session = requests.Session()
         self.headers = {
             'User-Agent': 'Umbresp | Python',
             'Authorization': token
         }
+        self.get_profile = self.get_player
 
     def __str__(self):
         return f'Brawlstars Requests Client (timeout = {self.timeout}, session = {self.session})'
 
     def __repr__(self):
-        return f'<BS Client timeout = {self.timeout} baseUrl = {self.baseUrl}>'
+        return f'<BS Client timeout = {self.timeout} __base_url = {self.__base_url}>'
 
     def get_player(self, tag):
 
@@ -41,7 +42,7 @@ class Client:
 
         try:
             with self.session as session:
-                resp = sesssion.get(f'{self.baseUrl}players/{tag}', headers=self.headers, timeout=self.timeout)
+                resp = sesssion.get(f'{self.__base_url}players/{tag}', headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
@@ -64,7 +65,7 @@ class Client:
         tag = tag.upper()
 
         try:
-            resp = requests.get(f'{self.baseUrl}bands/{tag}', headers=self.headers, timeout=self.timeout)
+            resp = requests.get(f'{self.__base_url}bands/{tag}', headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
@@ -197,6 +198,6 @@ class Brawler(Box):
 
     def __str__(self):
         return f'{self.name} ({self.trophies} trophies)'
-        
+
     def __repr__(self):
         return f'<Brawler trophies = {self.trophies} name = {self.name}'
