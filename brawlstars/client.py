@@ -41,8 +41,7 @@ class Client:
         tag = tag.upper()
 
         try:
-            with self.session as session:
-                resp = sesssion.get(f'{self.__base_url}players/{tag}', headers=self.headers, timeout=self.timeout)
+            resp = self.sesssion.get(f'{self.__base_url}players/{tag}', headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
