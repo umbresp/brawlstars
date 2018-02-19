@@ -30,15 +30,28 @@ class Client:
         self.get_profile = self.get_player
 
     def __del__(self):
+        '''Safely destructs and closes the session.'''
         self.session.close()
 
     def __str__(self):
+        '''Returns a string to print.'''
         return 'Brawlstars Requests Client (timeout = ' + self.timeout + ', session = ' + self.session + ')'
 
     def __repr__(self):
+        '''Returns a string to eval.'''
         return '<BS Client timeout = ' + self.timeout + ' _base_url = ' + self._base_url + '>'
 
     def get_player(self, tag):
+        '''Gets a player.
+
+        Gets a player with specified tag. If no tag is specified, the request will fail.
+        If the tag is invalid, a brawlstars.InvalidTag will be raised.
+        If the data is missing, a brawlstars.ValueError will be raised.
+        If the connection times out, a brawlstars.Timeout will be raised.
+        If the data was unable to be received, a brawlstars.HTTPError will be raised along with the
+        HTTP status code.
+        On success, will return a Player.
+        '''
 
         tag = tag.strip("#")
         tag = tag.upper()
@@ -62,6 +75,16 @@ class Client:
         return player
 
     def get_band(self, tag):
+        '''Gets a band.
+
+        Gets a band with specified tag. If no tag is specified, the request will fail.
+        If the tag is invalid, a brawlstars.InvalidTag will be raised.
+        If the data is missing, a brawlstars.ValueError will be raised.
+        If the connection times out, a brawlstars.Timeout will be raised.
+        If the data was unable to be received, a brawlstars.HTTPError will be raised along with the
+        HTTP status code.
+        On success, will return a Band.
+        '''
 
         tag = tag.strip("#")
         tag = tag.upper()
