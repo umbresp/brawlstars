@@ -15,16 +15,16 @@ class Client:
         Creates an client.
         Automatically sets 4 attributes:
 
-            __base_url: The base URL to make the request from.
+            _base_url: The base URL to make the request from.
             headers: Headers to pass when making the request.
             session: A requests.Session() object that represents the session.
             timeout: The timeout to wait before cancelling a request.
         '''
-        self.__base_url = 'http://brawlstars-api.herokuapp.com/api/'
+        self._base_url = 'http://brawlstars-api.herokuapp.com/api/'
         self.timeout = timeout
         self.session = requests.Session()
         self.headers = {
-            'User-Agent': 'Umbresp | Python',
+            'User-Agent': 'Brawlstars | Python',
             'Authorization': token
         }
         self.get_profile = self.get_player
@@ -33,10 +33,10 @@ class Client:
         self.session.close()
 
     def __str__(self):
-        return f'Brawlstars Requests Client (timeout = {self.timeout}, session = {self.session})'
+        return 'Brawlstars Requests Client (timeout = ' + self.timeout + ', session = ' + self.session + ')'
 
     def __repr__(self):
-        return f'<BS Client timeout = {self.timeout} __base_url = {self.__base_url}>'
+        return '<BS Client timeout = ' + self.timeout + ' _base_url = ' + self._base_url + '>'
 
     def get_player(self, tag):
 
@@ -44,7 +44,7 @@ class Client:
         tag = tag.upper()
 
         try:
-            resp = self.sesssion.get(f'{self.__base_url}players/{tag}', headers=self.headers, timeout=self.timeout)
+            resp = self.sesssion.get(self._base_url + 'players/' + tag, headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
@@ -67,7 +67,7 @@ class Client:
         tag = tag.upper()
 
         try:
-            resp = requests.get(f'{self.__base_url}bands/{tag}', headers=self.headers, timeout=self.timeout)
+            resp = requests.get(self._base_url + 'bands/' + tag, headers=self.headers, timeout=self.timeout)
             if resp.status_code == 200:
                 data = resp.json()
             elif 500 > resp.status_code > 400:
@@ -86,10 +86,10 @@ class Client:
 class Player(Box):
 
     def __str__(self):
-        return f'{self.name} #{self.tag}'
+        return self.name + ' #' + self.tag
 
     def __repr__(self):
-        return f'<Player tag = {self.tag} name = {self.name}'
+        return '<Player tag = ' + self.tag + ' name = ' + self.name + '>'
 
     def get_id(self):
         try:
@@ -127,10 +127,10 @@ class Player(Box):
 class MinimalBand(Box):
 
     def __str__(self):
-        return f'{self.name} #{self.tag}'
+        return self.name + ' #' + self.tag
 
     def __repr__(self):
-        return f'<Minimal Band tag = {self.tag} name = {self.name}'
+        return '<Minimal Band tag = ' + self.tag + ' name = ' + self.name + '>'
 
     def get_id(self):
         try:
@@ -144,10 +144,10 @@ class MinimalBand(Box):
 class Band(Box):
 
     def __str__(self):
-        return f'{self.name} #{self.tag}'
+        return self.name + ' #' + self.tag
 
     def __repr__(self):
-        return f'<Band tag = {self.tag} name = {self.name}'
+        return '<Band tag = ' + self.tag + ' name = ' + self.name + '>'
 
     def get_id(self):
         try:
@@ -174,10 +174,10 @@ class Band(Box):
 class Member(Box):
 
     def __str__(self):
-        return f'{self.name}, position in clan {self.role}'
+        return self.name + ', position in clan ' + self.role
 
     def __repr__(self):
-        return f'<Member role = {self.role} name = {self.name}'
+        return '<Member role = ' + self.role + ' name = ' + self.name + '>'
 
     def get_id(self):
         try:
@@ -191,15 +191,15 @@ class Member(Box):
 class Id(Box):
 
     def __str__(self):
-        return f'{self.high}-{self.low}'
+        return self.high + '-' + self.low
 
     def __repr__(self):
-        return f'<ID high = {self.high} low = {self.low}'
+        return '<ID high = ' + self.high + ' low = ' + self.low + '>'
 
 class Brawler(Box):
 
     def __str__(self):
-        return f'{self.name} ({self.trophies} trophies)'
+        return self.name + ' (' + self.trophies + ' trophies)'
 
     def __repr__(self):
-        return f'<Brawler trophies = {self.trophies} name = {self.name}'
+        return '<Brawler trophies = ' + self.trophies + ' name = ' + self.name + '>'

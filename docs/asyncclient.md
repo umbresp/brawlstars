@@ -13,7 +13,7 @@
 ## Client Attributes
 | Variable | Description | Type |
 |----------|-------------|------|
-| baseUrl* | Base URL to make requests to. | string |
+| \_base\_url* | Base URL to make requests to. | string |
 | headers | Dictionary for headers to pass when making the request. Includes the token. | Dict |
 | session* | The aiohttp session. | aiohttp.ClientSession |
 | timeout | How long to wait for response. | integer |

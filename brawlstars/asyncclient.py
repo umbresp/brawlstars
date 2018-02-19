@@ -18,16 +18,16 @@ class AsyncClient:
         Creates an Asynchronous client.
         Automatically sets 4 attributes:
 
-            __base_url: The base URL to make the request from.
+            _base_url: The base URL to make the request from.
             headers: Headers to pass when making the request.
             session: An aiohttp.ClientSession object that represents the session.
             timeout: The timeout to wait before cancelling a request.
         '''
-        self.__base_url = 'https://brawlstars-api.herokuapp.com/api/'
+        self._base_url = 'https://brawlstars-api.herokuapp.com/api/'
         self.session = aiohttp.ClientSession()
         self.timeout = timeout
         self.headers = {
-            'User-Agent': 'Umbresp | Python (Async)',
+            'User-Agent': 'Brawlstars | Python (Async)',
             'Authorization': token
         }
         self.get_profile = self.get_player
@@ -36,10 +36,10 @@ class AsyncClient:
         self.session.close()
 
     def __str__(self):
-        return f'Brawlstars AioHTTP Client (timeout = {self.timeout}, session = {self.session})'
+        return 'Brawlstars AioHTTP Client (timeout = ' + self.timeout + ', session = ' + self.session + ')'
 
     def __repr__(self):
-        return f'<Asynchronous BS Client timeout = {self.timeout} __base_url = {self.__base_url}>'
+        return '<Asynchronous BS Client timeout = ' + self.timeout + ' _base_url = ' + self._base_url + '>'
 
     async def get_player(self, tag):
 
@@ -47,7 +47,7 @@ class AsyncClient:
         tag = tag.upper()
 
         try:
-            async with self.session.get(f'{self.__base_url}players/{tag}', timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(self._base_url + 'players/' + tag, timeout=self.timeout, headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:
@@ -72,7 +72,7 @@ class AsyncClient:
         tag = tag.upper()
 
         try:
-            async with self.session.get(f'{self.__base_url}bands/{tag}', timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(self._base_url + 'bands/' + tag, timeout=self.timeout, headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:
@@ -94,10 +94,10 @@ class AsyncClient:
 class Player(Box):
 
     def __str__(self):
-        return f'{self.name} #{self.tag}'
+        return self.name + ' #' + self.tag
 
     def __repr__(self):
-        return f'<Asynchronous Player tag = {self.tag} name = {self.name}'
+        return '<Asynchronous Player tag = ' + self.tag + ' name = ' + self.name + '>'
 
     async def get_id(self):
         try:
@@ -134,10 +134,10 @@ class Player(Box):
 class MinimalBand(Box):
 
     def __str__(self):
-        return f'{self.name} #{self.tag}'
+        return self.name + ' #' + self.tag
 
     def __repr__(self):
-        return f'<Asynchronous Minimal Band tag = {self.tag} name = {self.name}'
+        return '<Asynchronous Minimal Band tag = ' + self.tag + ' name = ' + self.name + '>'
     
     async def get_id(self):
         try:
@@ -151,10 +151,10 @@ class MinimalBand(Box):
 class Band(Box):
 
     def __str__(self):
-        return f'{self.name} #{self.tag}'
+        return self.name + ' #' + self.tag
 
     def __repr__(self):
-        return f'<Asynchronous Band tag = {self.tag} name = {self.name}'
+        return '<Asynchronous Band tag = ' + self.tag + ' name = ' + self.name + '>'
 
     async def get_id(self):
         try:
@@ -181,10 +181,10 @@ class Band(Box):
 class Member(Box):
 
     def __str__(self):
-        return f'{self.name}, position in clan {self.role}'
+        return self.name + ', position in clan ' + self.role
 
     def __repr__(self):
-        return f'<Asynchronous Member role = {self.role} name = {self.name}'
+        return '<Asynchronous Member role = ' + self.role + ' name = ' + self.name + '>'
 
     async def get_id(self):
         try:
@@ -197,15 +197,15 @@ class Member(Box):
 
 class Id(Box):
     def __str__(self):
-        return f'{self.high}-{self.low}'
+        return self.high + '-' + self.low
 
     def __repr__(self):
-        return f'<Asynchronous ID high = {self.high} low = {self.low}'
+        return '<Asynchronous ID high = ' + self.high + ' low = ' + self.low + '>'
 
 class Brawler(Box):
 
     def __str__(self):
-        return f'{self.name} ({self.trophies} trophies)'
+        return self.name + ' (' + self.trophies + ' trophies)'
 
     def __repr__(self):
-        return f'<Asynchronous Brawler trophies = {self.trophies} name = {self.name}'
+        return '<Asynchronous Brawler trophies = ' + self.trophies + ' name = ' + self.name + '>'
