@@ -29,6 +29,9 @@ class Client:
         }
         self.get_profile = self.get_player
 
+    def __del__(self):
+        self.session.close()
+
     def __str__(self):
         return f'Brawlstars Requests Client (timeout = {self.timeout}, session = {self.session})'
 
