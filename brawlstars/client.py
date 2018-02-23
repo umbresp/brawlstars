@@ -46,7 +46,7 @@ class Client:
 
         Gets a player with specified tag. If no tag is specified, the request will fail.
         If the tag is invalid, a brawlstars.InvalidTag will be raised.
-        If the data is missing, a brawlstars.ValueError will be raised.
+        If the data is missing, a ValueError will be raised.
         If the connection times out, a brawlstars.Timeout will be raised.
         If the data was unable to be received, a brawlstars.HTTPError will be raised along with the
         HTTP status code.
@@ -79,7 +79,7 @@ class Client:
 
         Gets a band with specified tag. If no tag is specified, the request will fail.
         If the tag is invalid, a brawlstars.InvalidTag will be raised.
-        If the data is missing, a brawlstars.ValueError will be raised.
+        If the data is missing, a ValueError will be raised.
         If the connection times out, a brawlstars.Timeout will be raised.
         If the data was unable to be received, a brawlstars.HTTPError will be raised along with the
         HTTP status code.
