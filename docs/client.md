@@ -24,3 +24,5 @@
 |--------|-------------|---------|
 | get_band(tag) | Get information about a band with specified tag. | Band |
 | get_player(tag) | Get information about a player with specified tag. | Player |
+| get_player_leaderboard() | Get the leaderboard for players. | PlayerLeaderboard |
+| get_band_leaderboard() | Get the leaderboard for bands. | BandLeaderboard |

@@ -25,3 +25,5 @@
 |--------|-------------|---------|
 | await get_band(tag) | Get information about a band with specified tag. | Band |
 | await get_player(tag) | Get information about a player with specified tag. | Player |
+| await get_player_leaderboard() | Get the leaderboard for players. | PlayerLeaderboard |
+| await get_band_leaderboard() | Get the leaderboard for bands. | BandLeaderboard |

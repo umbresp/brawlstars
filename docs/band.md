@@ -3,7 +3,7 @@
 (All methods and attributes of Box automatically belong to Band.)
 
 ## Creating a Band
-The only way to create a player is to use get it from brawlstars.Client or brawlstars.AsyncClient. Example:
+The only way to create a band is to use get it from brawlstars.Client or brawlstars.AsyncClient. Example:
 ```py
 import brawlstars
 client = brawlstars.AsyncClient('token here', '5')
