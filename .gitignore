@@ -1,4 +1,4 @@
 .pypirc
 .vs
-brawlstars/__pycache__/
-dist
+brawlstars__pycache__/
+dist/
