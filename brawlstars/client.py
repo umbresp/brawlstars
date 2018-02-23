@@ -106,6 +106,44 @@ class Client:
         band = Band(data)
         return band
 
+    def get_player_leaderboard(self):
+
+        try:
+            resp = requests.get(self._base_url + 'leaderboards/players', headers=self.headers, timeout=self.timeout)
+            if resp.status_code == 200:
+                data = resp.json()
+            elif 500 > resp.status_code > 400:
+                raise HTTPError(resp.status_code)
+            else:
+                raise Error()
+        except ValueError:
+            raise MissingData('data')
+        except:
+            raise Timeout()
+
+        data = Box(data)
+        data = PlayerLeaderboard(data)
+        return data
+
+    def get_band_leaderboard(self):
+
+        try:
+            resp = requests.get(self._base_url + 'leaderboards/bands', headers=self.headers, timeout=self.timeout)
+            if resp.status_code == 200:
+                data = resp.json()
+            elif 500 > resp.status_code > 400:
+                raise HTTPError(resp.status_code)
+            else:
+                raise Error()
+        except ValueError:
+            raise MissingData('data')
+        except:
+            raise Timeout()
+
+        data = Box(data)
+        data = BandLeaderboard(data)
+        return data
+
 class Player(Box):
 
     def __str__(self):
@@ -140,7 +178,7 @@ class Player(Box):
     def get_band(self):
         try:
             band = self.band
-        except AttributError:
+        except AttributeError:
             return None
         band = Box(band)
         band = MinimalBand(band)
@@ -184,7 +222,7 @@ class Band(Box):
     def get_members(self):
         try:
             memberList = self.bandMembers
-        except AttributError:
+        except AttributeError:
             return None
         members = []
         for i in memberList:
@@ -226,3 +264,79 @@ class Brawler(Box):
 
     def __repr__(self):
         return '<Brawler trophies = ' + self.trophies + ' name = ' + self.name + '>'
+
+class PlayerLeaderboard(Box):
+
+    def __str__(self):
+        return 'Player Leaderboard'
+
+    def __repr__(self):
+        return '<Player Leaderboard>'
+
+    def get_players(self):
+        try:
+            memberList = self.players
+        except AttributeError:
+            return None
+        members = []
+        for i in memberList:
+            thing = Box(i)
+            thing = RankedPlayer(thing)
+            members.append(thing)
+
+        return members
+
+class RankedPlayer(Box):
+
+    def __str__(self):
+        return self.name + ' (#' + self.tag + '), ranked #' + self.positionInLeaderboard
+
+    def __repr__(self):
+        return '<RankedPlayer name = ' + self.name + ' tag = ' + self.tag + ' rank = ' + self.positionInLeaderboard + '>'
+
+    def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
+
+class BandLeaderboard(Box):
+
+    def __str__(self):
+        return 'Band Leaderboard'
+
+    def __repr__(self):
+        return '<Band Leaderboard>'
+
+    def get_bands(self):
+        try:
+            memberList = self.bands
+        except AttributeError:
+            return None
+        members = []
+        for i in memberList:
+            thing = Box(i)
+            thing = RankedBand(thing)
+            members.append(thing)
+
+        return members
+
+class RankedBand(Box):
+
+    def __str__(self):
+        return self.name + ' (#' + self.tag + '), ranked #' + self.positionInLeaderboard
+
+    def __repr__(self):
+        return '<RankedBand name = ' + self.name + ' tag = ' + self.tag + ' rank = ' + self.positionInLeaderboard + '>'
+
+    async def get_id(self):
+        try:
+            ret = self.id
+        except AttributeError:
+            return None
+        ret = Box(ret)
+        ret = Id(ret)
+        return ret
