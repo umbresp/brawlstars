@@ -9,11 +9,14 @@ Here's a list with a link to a file for every class in the wrapper because I'm *
 - [Client](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/client.md)
 - [Errors](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/errors.md)
 - [Id](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/id.md)
+- [InfoBrawler](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/infobrawler.md)
+- [Map](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/map.md)
+- [Mode](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/mode.md)
 - [Member](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/member.md)
 - [MinimalBand](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/minimalband.md)
 - [Player](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/player.md)
 - [PlayerLeaderboard](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/playerleaderboard.md)
 - [RankedBand](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/rankedband.md)
 - [RankedPlayer](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/rankedplayer.md)
+- [StaticData](https://github.com/umbresp/brawlstars/blob/master/brawlstars/docs/staticdata.md)
 
-\*Not finished yet.
