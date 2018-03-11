@@ -2,6 +2,7 @@ import requests
 from box import Box
 from .errors import Error, ArgError, MissingArg, InvalidArg, HTTPError, Timeout, MissingData
 
+
 class Client:
     '''The client for brawl stars API.
 
@@ -9,6 +10,7 @@ class Client:
     Methods are in snake_case.
     Attributes are in camelCase.
     '''
+
     def __init__(self, token, timeout=5):
         '''Creates an client.
 
@@ -68,7 +70,6 @@ class Client:
             raise MissingData('data')
         except:
             raise Timeout()
-
 
         data = Box(data)
         player = Player(data)
@@ -144,6 +145,7 @@ class Client:
         data = BandLeaderboard(data)
         return data
 
+
 class Player(Box):
 
     def __str__(self):
@@ -202,6 +204,7 @@ class MinimalBand(Box):
         ret = Id(ret)
         return ret
 
+
 class Band(Box):
 
     def __str__(self):
@@ -232,6 +235,7 @@ class Band(Box):
 
         return members
 
+
 class Member(Box):
 
     def __str__(self):
@@ -249,6 +253,7 @@ class Member(Box):
         ret = Id(ret)
         return ret
 
+
 class Id(Box):
 
     def __str__(self):
@@ -257,6 +262,7 @@ class Id(Box):
     def __repr__(self):
         return '<ID high = ' + self.high + ' low = ' + self.low + '>'
 
+
 class Brawler(Box):
 
     def __str__(self):
@@ -264,6 +270,7 @@ class Brawler(Box):
 
     def __repr__(self):
         return '<Brawler trophies = ' + self.trophies + ' name = ' + self.name + '>'
+
 
 class PlayerLeaderboard(Box):
 
@@ -286,6 +293,7 @@ class PlayerLeaderboard(Box):
 
         return members
 
+
 class RankedPlayer(Box):
 
     def __str__(self):
@@ -302,6 +310,7 @@ class RankedPlayer(Box):
         ret = Box(ret)
         ret = Id(ret)
         return ret
+
 
 class BandLeaderboard(Box):
 
@@ -323,6 +332,7 @@ class BandLeaderboard(Box):
             members.append(thing)
 
         return members
+
 
 class RankedBand(Box):
 

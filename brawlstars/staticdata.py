@@ -3,6 +3,7 @@ from box import Box
 from .errors import Error, ArgError, MissingArg, InvalidArg, HTTPError, Timeout, MissingData
 import json
 
+
 class StaticData:
 
     def __init__(self, timeout=5):
@@ -44,7 +45,7 @@ class StaticData:
                     'brock', 'jessie']
 
         if name.lower().replace(" ", "_") == "shelly":
-            name = "shelley" # fuck u axay u misspelled it
+            name = "shelley"  # fuck u axay u misspelled it
         if name.lower().replace(" ", "_") not in brawlers:
             raise InvalidArg('name')
 
@@ -163,6 +164,8 @@ class StaticData:
         data = Box(data)
         data = Map(data)
         return data
+
+
 class InfoBrawler(Box):
 
     def __str__(self):
@@ -171,6 +174,7 @@ class InfoBrawler(Box):
     def __repr__(self):
         return '<InfoBrawler ' + self.name + '>'
 
+
 class Mode(Box):
 
     def __str__(self):
@@ -178,6 +182,7 @@ class Mode(Box):
 
     def __repr__(self):
         return '<Mode ' + self.name + '>'
+
 
 class Map(Box):
 

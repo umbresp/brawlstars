@@ -4,6 +4,7 @@ from box import Box
 from .errors import Error, ArgError, MissingArg, InvalidArg, HTTPError, Timeout, MissingData
 import json
 
+
 class AsyncClient:
     '''The Asynchronous client for brawl stars API.
 
@@ -60,7 +61,8 @@ class AsyncClient:
         tag = tag.upper()
 
         try:
-            async with self.session.get(self._base_url + 'players/' + tag, timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(self._base_url + 'players/' + tag, timeout=self.timeout,
+                                        headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:
@@ -73,7 +75,6 @@ class AsyncClient:
             raise MissingData('data')
         except:
             raise InvalidArg('tag')
-
 
         data = Box(data)
         player = Player(data)
@@ -95,7 +96,8 @@ class AsyncClient:
         tag = tag.upper()
 
         try:
-            async with self.session.get(self._base_url + 'bands/' + tag, timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(self._base_url + 'bands/' + tag, timeout=self.timeout,
+                                        headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:
@@ -108,7 +110,6 @@ class AsyncClient:
             raise MissingData('data')
         except:
             raise InvalidArg('tag')
-
 
         data = Box(data)
         band = Band(data)
@@ -117,7 +118,8 @@ class AsyncClient:
     async def get_player_leaderboard(self):
 
         try:
-            async with self.session.get(self._base_url + 'leaderboards/players', timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(self._base_url + 'leaderboards/players', timeout=self.timeout,
+                                        headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:
@@ -130,7 +132,6 @@ class AsyncClient:
             raise MissingData('data')
         except:
             raise InvalidArg('tag')
-
 
         data = Box(data)
         data = PlayerLeaderboard(data)
@@ -139,7 +140,8 @@ class AsyncClient:
     async def get_band_leaderboard(self):
 
         try:
-            async with self.session.get(self._base_url + 'leaderboards/bands', timeout=self.timeout, headers=self.headers) as resp:
+            async with self.session.get(self._base_url + 'leaderboards/bands', timeout=self.timeout,
+                                        headers=self.headers) as resp:
                 if resp.status == 200:
                     data = await resp.json()
                 elif 500 > resp.status > 400:
@@ -153,10 +155,10 @@ class AsyncClient:
         except:
             raise InvalidArg('tag')
 
-
         data = Box(data)
         data = BandLeaderboard(data)
         return data
+
 
 class Player(Box):
 
@@ -198,6 +200,7 @@ class Player(Box):
         band = MinimalBand(band)
         return band
 
+
 class MinimalBand(Box):
 
     def __str__(self):
@@ -205,7 +208,7 @@ class MinimalBand(Box):
 
     def __repr__(self):
         return '<Asynchronous Minimal Band tag = ' + self.tag + ' name = ' + self.name + '>'
-    
+
     async def get_id(self):
         try:
             ret = self.id
@@ -214,6 +217,7 @@ class MinimalBand(Box):
         ret = Box(ret)
         ret = Id(ret)
         return ret
+
 
 class Band(Box):
 
@@ -245,6 +249,7 @@ class Band(Box):
 
         return members
 
+
 class Member(Box):
 
     def __str__(self):
@@ -262,12 +267,14 @@ class Member(Box):
         ret = Id(ret)
         return ret
 
+
 class Id(Box):
     def __str__(self):
         return self.high + '-' + self.low
 
     def __repr__(self):
         return '<Asynchronous ID high = ' + self.high + ' low = ' + self.low + '>'
+
 
 class Brawler(Box):
 
@@ -276,6 +283,7 @@ class Brawler(Box):
 
     def __repr__(self):
         return '<Asynchronous Brawler trophies = ' + self.trophies + ' name = ' + self.name + '>'
+
 
 class PlayerLeaderboard(Box):
 
@@ -298,6 +306,7 @@ class PlayerLeaderboard(Box):
 
         return members
 
+
 class RankedPlayer(Box):
 
     def __str__(self):
@@ -314,6 +323,7 @@ class RankedPlayer(Box):
         ret = Box(ret)
         ret = Id(ret)
         return ret
+
 
 class BandLeaderboard(Box):
 
@@ -335,6 +345,7 @@ class BandLeaderboard(Box):
             members.append(thing)
 
         return members
+
 
 class RankedBand(Box):
 
