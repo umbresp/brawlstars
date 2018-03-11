@@ -4,15 +4,15 @@ from .errors import Error, ArgError, MissingArg, InvalidArg, HTTPError, Timeout,
 
 
 class Client:
-    '''The client for brawl stars API.
+    """The client for brawl stars API.
 
     The client for brawl stars API.
     Methods are in snake_case.
     Attributes are in camelCase.
-    '''
+    """
 
     def __init__(self, token, timeout=5):
-        '''Creates an client.
+        """Creates an client.
 
         Creates an client.
         Automatically sets 4 attributes:
@@ -21,7 +21,7 @@ class Client:
             headers: Headers to pass when making the request.
             session: A requests.Session() object that represents the session.
             timeout: The timeout to wait before cancelling a request.
-        '''
+        """
         self._base_url = 'http://brawlstars-api.herokuapp.com/api/'
         self.timeout = timeout
         self.session = requests.Session()
@@ -32,19 +32,19 @@ class Client:
         self.get_profile = self.get_player
 
     def __del__(self):
-        '''Safely destructs and closes the session.'''
+        """Safely destructs and closes the session."""
         self.session.close()
 
     def __str__(self):
-        '''Returns a string to print.'''
-        return 'Brawlstars Requests Client (timeout = ' + self.timeout + ', session = ' + self.session + ')'
+        """Returns a string to print."""
+        return 'Brawlstars Requests Client (timeout = ' + str(self.timeout) + ', session = ' + str(self.session) + ')'
 
     def __repr__(self):
-        '''Returns a string to eval.'''
-        return '<BS Client timeout = ' + self.timeout + ' _base_url = ' + self._base_url + '>'
+        """Returns a string to eval."""
+        return '<BS Client timeout = ' + str(self.timeout) + ' _base_url = ' + self._base_url + '>'
 
     def get_player(self, tag):
-        '''Gets a player.
+        """Gets a player.
 
         Gets a player with specified tag. If no tag is specified, the request will fail.
         If the tag is invalid, a brawlstars.InvalidTag will be raised.
@@ -53,7 +53,7 @@ class Client:
         If the data was unable to be received, a brawlstars.HTTPError will be raised along with the
         HTTP status code.
         On success, will return a Player.
-        '''
+        """
 
         tag = tag.strip("#")
         tag = tag.upper()
@@ -68,7 +68,7 @@ class Client:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         data = Box(data)
@@ -76,7 +76,7 @@ class Client:
         return player
 
     def get_band(self, tag):
-        '''Gets a band.
+        """Gets a band.
 
         Gets a band with specified tag. If no tag is specified, the request will fail.
         If the tag is invalid, a brawlstars.InvalidTag will be raised.
@@ -85,7 +85,7 @@ class Client:
         If the data was unable to be received, a brawlstars.HTTPError will be raised along with the
         HTTP status code.
         On success, will return a Band.
-        '''
+        """
 
         tag = tag.strip("#")
         tag = tag.upper()
@@ -100,7 +100,7 @@ class Client:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         data = Box(data)
@@ -119,7 +119,7 @@ class Client:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         data = Box(data)
@@ -138,7 +138,7 @@ class Client:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         data = Box(data)
@@ -224,11 +224,11 @@ class Band(Box):
 
     def get_members(self):
         try:
-            memberList = self.bandMembers
+            member_list = self.bandMembers
         except AttributeError:
             return None
         members = []
-        for i in memberList:
+        for i in member_list:
             thing = Box(i)
             thing = Member(thing)
             members.append(thing)
@@ -282,11 +282,11 @@ class PlayerLeaderboard(Box):
 
     def get_players(self):
         try:
-            memberList = self.players
+            member_list = self.players
         except AttributeError:
             return None
         members = []
-        for i in memberList:
+        for i in member_list:
             thing = Box(i)
             thing = RankedPlayer(thing)
             members.append(thing)
@@ -322,11 +322,11 @@ class BandLeaderboard(Box):
 
     def get_bands(self):
         try:
-            memberList = self.bands
+            member_list = self.bands
         except AttributeError:
             return None
         members = []
-        for i in memberList:
+        for i in member_list:
             thing = Box(i)
             thing = RankedBand(thing)
             members.append(thing)

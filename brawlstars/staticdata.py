@@ -27,7 +27,7 @@ class StaticData:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         brawlers = []
@@ -59,7 +59,7 @@ class StaticData:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         data = Box(data)
@@ -77,7 +77,7 @@ class StaticData:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         modes = []
@@ -106,7 +106,7 @@ class StaticData:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         data = Box(data)
@@ -124,7 +124,7 @@ class StaticData:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         maps = []
@@ -158,7 +158,7 @@ class StaticData:
                 raise Error()
         except ValueError:
             raise MissingData('data')
-        except:
+        except Exception:
             raise Timeout()
 
         data = Box(data)
