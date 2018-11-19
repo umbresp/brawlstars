@@ -22,7 +22,7 @@ class Client:
             session: A requests.Session() object that represents the session.
             timeout: The timeout to wait before cancelling a request.
         """
-        self._base_url = 'http://brawlstars-api.herokuapp.com/api/'
+        self._base_url = 'https://brawlapi.cf/api'
         self.timeout = timeout
         self.session = requests.Session()
         self.headers = {

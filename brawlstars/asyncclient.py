@@ -24,7 +24,7 @@ class AsyncClient:
             session: An aiohttp.ClientSession object that represents the session.
             timeout: The timeout to wait before cancelling a request.
         """
-        self._base_url = 'https://brawlstars-api.herokuapp.com/api/'
+        self._base_url = 'https://brawlapi.cf/api'
         self.session = aiohttp.ClientSession()
         self.timeout = timeout
         self.headers = {
